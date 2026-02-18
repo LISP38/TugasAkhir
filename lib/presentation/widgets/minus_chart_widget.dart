@@ -2,11 +2,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:kupon_bbm_app/domain/models/rekap_satker_model.dart';
 
-class AnalysisChartWidget extends StatelessWidget {
+class MinusChartWidget extends StatelessWidget {
   final List<RekapSatkerModel> data;
   final Function(String namaSatker)? onBarTapped;
 
-  const AnalysisChartWidget({
+  const MinusChartWidget({
     super.key, 
     required this.data,
     this.onBarTapped,
@@ -14,8 +14,6 @@ class AnalysisChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maxValue = data.fold<double>(0.0, (prev, e) => (e.kuotaAwal > prev) ? e.kuotaAwal : prev);
-
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: Colors.white,
@@ -27,15 +25,15 @@ class AnalysisChartWidget extends StatelessWidget {
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
               minY: 0,
-              maxY: (maxValue * 1.15).clamp(1.0, double.infinity),
+              maxY: 250,
               titlesData: FlTitlesData(
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 55,
-                    interval: 300,
+                    interval: 50,
                     getTitlesWidget: (double value, TitleMeta meta) {
-                      if (value % 300 != 0) {
+                      if (value % 50 != 0) {
                         return const SizedBox.shrink();
                       }
                       return SideTitleWidget(
@@ -57,14 +55,14 @@ class AnalysisChartWidget extends StatelessWidget {
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    reservedSize: 60,
+                    reservedSize: 80,
                     getTitlesWidget: (double value, TitleMeta meta) {
                       final idx = value.toInt();
                       if (idx < 0 || idx >= data.length) return const SizedBox.shrink();
                       final label = data[idx].namaSatker;
                       return SideTitleWidget(
                         axisSide: meta.axisSide,
-                        space: 15,
+                        space: 8,
                         child: Transform.rotate(
                           angle: -0.5,
                           child: Text(
@@ -86,9 +84,9 @@ class AnalysisChartWidget extends StatelessWidget {
               gridData: FlGridData(
                 show: true,
                 drawVerticalLine: false,
-                horizontalInterval: 300,
+                horizontalInterval: 50,
                 getDrawingHorizontalLine: (value) {
-                  if (value % 300 == 0 && value >= 300) {
+                  if (value % 50 == 0 && value >= 50) {
                     return FlLine(
                       color: Colors.grey.withOpacity(0.3),
                       strokeWidth: 1,
@@ -120,33 +118,34 @@ class AnalysisChartWidget extends StatelessWidget {
                     final namaSatker = satkerData.namaSatker;
                     final kuotaAwal = satkerData.kuotaAwal.toInt();
                     final kuotaTerpakai = satkerData.kuotaTerpakai.toInt();
+                    final kuotaMinus = (kuotaTerpakai - kuotaAwal).toInt();
                     
                     final List<TextSpan> tooltipChildren = [
                       TextSpan(
-                        text: 'Total Kuota: $kuotaAwal L',
+                        text: 'Total Kuota: $kuotaAwal L\n',
                         style: const TextStyle(
-                          color: Colors.lightBlueAccent,
+                          color: Colors.white70,
                           fontWeight: FontWeight.w600,
                           fontSize: 11,
                         ),
                       ),
-                    ];
-                    
-                    if (kuotaTerpakai > 0) {
-                      tooltipChildren.add(
-                        const TextSpan(text: '\n'),
-                      );
-                      tooltipChildren.add(
-                        TextSpan(
-                          text: '● Terpakai: $kuotaTerpakai L',
-                          style: const TextStyle(
-                            color: Colors.blueAccent,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 11,
-                          ),
+                      TextSpan(
+                        text: 'Terpakai: $kuotaTerpakai L\n',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11,
                         ),
-                      );
-                    }
+                      ),
+                      TextSpan(
+                        text: '● Minus: $kuotaMinus L',
+                        style: const TextStyle(
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ];
                     
                     return BarTooltipItem(
                       '$namaSatker\n',
@@ -169,20 +168,19 @@ class AnalysisChartWidget extends StatelessWidget {
 
   List<BarChartGroupData> _makeBarGroups() {
     return List.generate(data.length, (i) {
-      final used = data[i].kuotaTerpakai;
-      final sisa = (data[i].kuotaAwal - used).clamp(0.0, double.infinity);
+      final minus = (data[i].kuotaTerpakai - data[i].kuotaAwal).clamp(0.0, double.infinity);
 
-      return BarChartGroupData(x: i, barRods: [
-        BarChartRodData(
-          toY: used + sisa,
-          rodStackItems: [
-            BarChartRodStackItem(0, used, Colors.blueAccent),
-            BarChartRodStackItem(used, used + sisa, Colors.lightBlueAccent),
-          ],
-          borderRadius: BorderRadius.circular(4),
-          width: 18,
-        )
-      ]);
+      return BarChartGroupData(
+        x: i, 
+        barRods: [
+          BarChartRodData(
+            toY: minus,
+            color: Colors.red.shade600,
+            borderRadius: BorderRadius.circular(4),
+            width: 18,
+          )
+        ],
+      );
     });
   }
 }
