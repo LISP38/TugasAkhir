@@ -8,10 +8,7 @@ class AppTheme {
       useMaterial3: true,
       colorSchemeSeed: Colors.blue, // Warna dasar untuk generate palet M3
       brightness: Brightness.light,
-      appBarTheme: const AppBarTheme(
-        elevation: 1,
-        centerTitle: true,
-      ),
+      appBarTheme: const AppBarTheme(elevation: 1, centerTitle: true),
       // Anda bisa kustomisasi komponen lain di sini
       // seperti inputDecorationTheme, elevatedButtonTheme, dll.
     );

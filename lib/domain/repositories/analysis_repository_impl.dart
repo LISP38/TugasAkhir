@@ -67,10 +67,13 @@ class AnalysisRepositoryImpl implements AnalysisRepository {
   }
 
   /// Get daftar kendaraan dengan total kuota terpakai per satker
-  Future<List<KendaraanRekapModel>> getKendaraanBySatker(String namaSatker) async {
+  Future<List<KendaraanRekapModel>> getKendaraanBySatker(
+    String namaSatker,
+  ) async {
     final db = await dbHelper.database;
-    
-    final result = await db.rawQuery('''
+
+    final result = await db.rawQuery(
+      '''
       SELECT 
         dk.kendaraan_id,
         dk.jenis_ranmor,
@@ -83,16 +86,21 @@ class AnalysisRepositoryImpl implements AnalysisRepository {
       WHERE ds.nama_satker = ?
       GROUP BY dk.kendaraan_id, dk.jenis_ranmor, dk.no_pol_kode, dk.no_pol_nomor
       ORDER BY kuota_terpakai DESC
-    ''', [namaSatker]);
+    ''',
+      [namaSatker],
+    );
 
     return result.map((m) => KendaraanRekapModel.fromMap(m)).toList();
   }
 
   /// Get daftar kendaraan dengan kuota minus per satker
-  Future<List<KendaraanRekapModel>> getKendaraanMinusBySatker(String namaSatker) async {
+  Future<List<KendaraanRekapModel>> getKendaraanMinusBySatker(
+    String namaSatker,
+  ) async {
     final db = await dbHelper.database;
-    
-    final result = await db.rawQuery('''
+
+    final result = await db.rawQuery(
+      '''
       SELECT 
         dk.kendaraan_id,
         dk.jenis_ranmor,
@@ -107,10 +115,10 @@ class AnalysisRepositoryImpl implements AnalysisRepository {
       GROUP BY dk.kendaraan_id, dk.jenis_ranmor, dk.no_pol_kode, dk.no_pol_nomor
       HAVING kuota_terpakai > 0
       ORDER BY kuota_terpakai DESC
-    ''', [namaSatker]);
+    ''',
+      [namaSatker],
+    );
 
     return result.map((m) => KendaraanRekapModel.fromMap(m)).toList();
   }
-
-
 }

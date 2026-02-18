@@ -15,11 +15,13 @@ class AnalysisDataPage extends StatefulWidget {
   State<AnalysisDataPage> createState() => _AnalysisDataPageState();
 }
 
-class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerProviderStateMixin {
-  AnalysisRepositoryImpl get _repo => widget.repository ?? AnalysisRepositoryImpl(DatabaseDatasource());
-  
+class _AnalysisDataPageState extends State<AnalysisDataPage>
+    with SingleTickerProviderStateMixin {
+  AnalysisRepositoryImpl get _repo =>
+      widget.repository ?? AnalysisRepositoryImpl(DatabaseDatasource());
+
   late TabController _tabController;
-  
+
   String? _selectedSatkerName;
   List<KendaraanRekapModel> _kendaraanList = [];
   bool _isLoadingKendaraan = false;
@@ -114,24 +116,15 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
           unselectedLabelColor: Colors.grey,
           indicatorColor: Colors.blue.shade700,
           tabs: const [
-            Tab(
-              icon: Icon(Icons.bar_chart),
-              text: 'Diagram Total Kuota BBM',
-            ),
-            Tab(
-              icon: Icon(Icons.warning_amber),
-              text: 'Diagram Kuota Minus',
-            ),
+            Tab(icon: Icon(Icons.bar_chart), text: 'Diagram Total Kuota BBM'),
+            Tab(icon: Icon(Icons.warning_amber), text: 'Diagram Kuota Minus'),
           ],
         ),
         const SizedBox(height: 8),
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: [
-              _buildTotalKuotaTab(),
-              _buildKuotaMinusTab(),
-            ],
+            children: [_buildTotalKuotaTab(), _buildKuotaMinusTab()],
           ),
         ),
       ],
@@ -147,25 +140,38 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
 
           // Card 1: Bar Chart
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('Rekapitulasi Penggunaan BBM per Satuan Kerja', style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    'Rekapitulasi Penggunaan BBM per Satuan Kerja',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                   const SizedBox(height: 12),
 
                   FutureBuilder<List<RekapSatkerModel>>(
                     future: _repo.getRekapSatker(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const SizedBox(height: 200, child: Center(child: CircularProgressIndicator()));
+                        return const SizedBox(
+                          height: 200,
+                          child: Center(child: CircularProgressIndicator()),
+                        );
                       }
 
                       if (snapshot.hasError) {
-                        return SizedBox(height: 120, child: Center(child: Text('Error: ${snapshot.error}')));
+                        return SizedBox(
+                          height: 120,
+                          child: Center(
+                            child: Text('Error: ${snapshot.error}'),
+                          ),
+                        );
                       }
 
                       final data = snapshot.data ?? <RekapSatkerModel>[];
@@ -187,7 +193,9 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
           // Tabel Daftar Kendaraan
           if (_selectedSatkerName != null) ...[
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -226,9 +234,7 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
                     else if (_kendaraanList.isEmpty)
                       const Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Center(
-                          child: Text('Tidak ada data kendaraan'),
-                        ),
+                        child: Center(child: Text('Tidak ada data kendaraan')),
                       )
                     else
                       _buildKendaraanTable(),
@@ -254,29 +260,42 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
 
           // Card 1: Diagram Kupon Minus
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('Kupon Minus per Satuan Kerja', style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    'Kupon Minus per Satuan Kerja',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                   const SizedBox(height: 12),
 
                   FutureBuilder<List<RekapSatkerModel>>(
                     future: _repo.getKuponMinusPerSatker(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const SizedBox(height: 200, child: Center(child: CircularProgressIndicator()));
+                        return const SizedBox(
+                          height: 200,
+                          child: Center(child: CircularProgressIndicator()),
+                        );
                       }
 
                       if (snapshot.hasError) {
-                        return SizedBox(height: 120, child: Center(child: Text('Error: ${snapshot.error}')));
+                        return SizedBox(
+                          height: 120,
+                          child: Center(
+                            child: Text('Error: ${snapshot.error}'),
+                          ),
+                        );
                       }
 
                       final data = snapshot.data ?? <RekapSatkerModel>[];
-                      
+
                       if (data.isEmpty) {
                         return const SizedBox(
                           height: 180,
@@ -307,7 +326,9 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
           // Tabel Daftar Kendaraan Minus
           if (_selectedMinusSatkerName != null) ...[
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -372,14 +393,11 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
-        headingRowColor: MaterialStateProperty.all(Colors.blue.shade50),
+        headingRowColor: WidgetStateProperty.all(Colors.blue.shade50),
         border: TableBorder.all(color: Colors.grey.shade300, width: 1),
         columns: const [
           DataColumn(
-            label: Text(
-              'No',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            label: Text('No', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           DataColumn(
             label: Text(
@@ -401,32 +419,29 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
             numeric: true,
           ),
         ],
-        rows: List.generate(
-          _kendaraanList.length,
-          (index) {
-            final kendaraan = _kendaraanList[index];
-            return DataRow(
-              cells: [
-                DataCell(Text('${index + 1}')),
-                DataCell(Text(kendaraan.jenisRanmor)),
-                DataCell(Text(kendaraan.nomorPolisi)),
-                DataCell(
-                  Text(
-                    kendaraan.kuotaTerpakai.toInt().toString(),
-                    style: TextStyle(
-                      color: kendaraan.kuotaTerpakai > 0 
-                          ? Colors.blue.shade700 
-                          : Colors.grey,
-                      fontWeight: kendaraan.kuotaTerpakai > 0 
-                          ? FontWeight.w600 
-                          : FontWeight.normal,
-                    ),
+        rows: List.generate(_kendaraanList.length, (index) {
+          final kendaraan = _kendaraanList[index];
+          return DataRow(
+            cells: [
+              DataCell(Text('${index + 1}')),
+              DataCell(Text(kendaraan.jenisRanmor)),
+              DataCell(Text(kendaraan.nomorPolisi)),
+              DataCell(
+                Text(
+                  kendaraan.kuotaTerpakai.toInt().toString(),
+                  style: TextStyle(
+                    color: kendaraan.kuotaTerpakai > 0
+                        ? Colors.blue.shade700
+                        : Colors.grey,
+                    fontWeight: kendaraan.kuotaTerpakai > 0
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                   ),
                 ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -435,14 +450,11 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
-        headingRowColor: MaterialStateProperty.all(Colors.red.shade50),
+        headingRowColor: WidgetStateProperty.all(Colors.red.shade50),
         border: TableBorder.all(color: Colors.grey.shade300, width: 1),
         columns: const [
           DataColumn(
-            label: Text(
-              'No',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            label: Text('No', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           DataColumn(
             label: Text(
@@ -464,28 +476,25 @@ class _AnalysisDataPageState extends State<AnalysisDataPage> with SingleTickerPr
             numeric: true,
           ),
         ],
-        rows: List.generate(
-          _kendaraanMinusList.length,
-          (index) {
-            final kendaraan = _kendaraanMinusList[index];
-            return DataRow(
-              cells: [
-                DataCell(Text('${index + 1}')),
-                DataCell(Text(kendaraan.jenisRanmor)),
-                DataCell(Text(kendaraan.nomorPolisi)),
-                DataCell(
-                  Text(
-                    kendaraan.kuotaTerpakai.toInt().toString(),
-                    style: TextStyle(
-                      color: Colors.red.shade700,
-                      fontWeight: FontWeight.bold,
-                    ),
+        rows: List.generate(_kendaraanMinusList.length, (index) {
+          final kendaraan = _kendaraanMinusList[index];
+          return DataRow(
+            cells: [
+              DataCell(Text('${index + 1}')),
+              DataCell(Text(kendaraan.jenisRanmor)),
+              DataCell(Text(kendaraan.nomorPolisi)),
+              DataCell(
+                Text(
+                  kendaraan.kuotaTerpakai.toInt().toString(),
+                  style: TextStyle(
+                    color: Colors.red.shade700,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

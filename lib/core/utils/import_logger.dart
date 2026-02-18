@@ -4,13 +4,9 @@ class ImportLogger {
   static void log(String message, {String? error}) {
     final timestamp = DateTime.now().toIso8601String();
     final logMessage = '[$timestamp] $message';
-    
+
     // Log ke console dengan tag IMPORT
-    developer.log(
-      logMessage,
-      name: 'IMPORT',
-      error: error,
-    );
+    developer.log(logMessage, name: 'IMPORT', error: error);
   }
 
   static void logSuccess(String message) {

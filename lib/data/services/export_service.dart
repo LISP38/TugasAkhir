@@ -416,7 +416,7 @@ class ExportService {
         return true;
       }
       return false;
-    } catch (e, stackTrace) {
+    } catch (e) {
       return false;
     }
   }
@@ -1141,9 +1141,7 @@ class ExportService {
       }
 
       // Filter HANYA kupon yang MINUS (kuotaSisa < 0)
-      final kuponMinus = filteredKupons
-          .where((k) => k.kuotaSisa < 0)
-          .toList();
+      final kuponMinus = filteredKupons.where((k) => k.kuotaSisa < 0).toList();
 
       // Filter berdasarkan jenis kupon dan BBM
       final ranPertamax = kuponMinus

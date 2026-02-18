@@ -31,7 +31,7 @@ class JenisBbmRepositoryImpl implements JenisBbmRepository {
   @override
   Future<JenisBbmEntity> createJenisBbm(String name) async {
     final db = await dbHelper.database;
-    
+
     // First try to find if it exists with case-insensitive match
     final existing = await findJenisBbmByName(name);
     if (existing != null) return existing;
@@ -60,7 +60,7 @@ class JenisBbmRepositoryImpl implements JenisBbmRepository {
   Future<JenisBbmEntity?> findJenisBbmByName(String name) async {
     final db = await dbHelper.database;
     final normalizedName = name.trim().toLowerCase();
-    
+
     // Try exact match first
     var result = await db.query(
       'dim_jenis_bbm',

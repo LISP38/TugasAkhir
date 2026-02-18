@@ -6,15 +6,14 @@ class AnalysisChartWidget extends StatelessWidget {
   final List<RekapSatkerModel> data;
   final Function(String namaSatker)? onBarTapped;
 
-  const AnalysisChartWidget({
-    super.key, 
-    required this.data,
-    this.onBarTapped,
-  });
+  const AnalysisChartWidget({super.key, required this.data, this.onBarTapped});
 
   @override
   Widget build(BuildContext context) {
-    final maxValue = data.fold<double>(0.0, (prev, e) => (e.kuotaAwal > prev) ? e.kuotaAwal : prev);
+    final maxValue = data.fold<double>(
+      0.0,
+      (prev, e) => (e.kuotaAwal > prev) ? e.kuotaAwal : prev,
+    );
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -52,15 +51,20 @@ class AnalysisChartWidget extends StatelessWidget {
                     },
                   ),
                 ),
-                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 60,
                     getTitlesWidget: (double value, TitleMeta meta) {
                       final idx = value.toInt();
-                      if (idx < 0 || idx >= data.length) return const SizedBox.shrink();
+                      if (idx < 0 || idx >= data.length)
+                        return const SizedBox.shrink();
                       final label = data[idx].namaSatker;
                       return SideTitleWidget(
                         axisSide: meta.axisSide,
@@ -100,11 +104,12 @@ class AnalysisChartWidget extends StatelessWidget {
               borderData: FlBorderData(show: false),
               barTouchData: BarTouchData(
                 touchCallback: (FlTouchEvent event, barTouchResponse) {
-                  if (event is FlTapUpEvent && 
-                      barTouchResponse != null && 
+                  if (event is FlTapUpEvent &&
+                      barTouchResponse != null &&
                       barTouchResponse.spot != null &&
                       onBarTapped != null) {
-                    final touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
+                    final touchedIndex =
+                        barTouchResponse.spot!.touchedBarGroupIndex;
                     if (touchedIndex >= 0 && touchedIndex < data.length) {
                       onBarTapped!(data[touchedIndex].namaSatker);
                     }
@@ -115,12 +120,12 @@ class AnalysisChartWidget extends StatelessWidget {
                     if (groupIndex < 0 || groupIndex >= data.length) {
                       return null;
                     }
-                    
+
                     final satkerData = data[groupIndex];
                     final namaSatker = satkerData.namaSatker;
                     final kuotaAwal = satkerData.kuotaAwal.toInt();
                     final kuotaTerpakai = satkerData.kuotaTerpakai.toInt();
-                    
+
                     final List<TextSpan> tooltipChildren = [
                       TextSpan(
                         text: 'Total Kuota: $kuotaAwal L',
@@ -131,11 +136,9 @@ class AnalysisChartWidget extends StatelessWidget {
                         ),
                       ),
                     ];
-                    
+
                     if (kuotaTerpakai > 0) {
-                      tooltipChildren.add(
-                        const TextSpan(text: '\n'),
-                      );
+                      tooltipChildren.add(const TextSpan(text: '\n'));
                       tooltipChildren.add(
                         TextSpan(
                           text: '● Terpakai: $kuotaTerpakai L',
@@ -147,7 +150,7 @@ class AnalysisChartWidget extends StatelessWidget {
                         ),
                       );
                     }
-                    
+
                     return BarTooltipItem(
                       '$namaSatker\n',
                       const TextStyle(
@@ -172,17 +175,20 @@ class AnalysisChartWidget extends StatelessWidget {
       final used = data[i].kuotaTerpakai;
       final sisa = (data[i].kuotaAwal - used).clamp(0.0, double.infinity);
 
-      return BarChartGroupData(x: i, barRods: [
-        BarChartRodData(
-          toY: used + sisa,
-          rodStackItems: [
-            BarChartRodStackItem(0, used, Colors.blueAccent),
-            BarChartRodStackItem(used, used + sisa, Colors.lightBlueAccent),
-          ],
-          borderRadius: BorderRadius.circular(4),
-          width: 18,
-        )
-      ]);
+      return BarChartGroupData(
+        x: i,
+        barRods: [
+          BarChartRodData(
+            toY: used + sisa,
+            rodStackItems: [
+              BarChartRodStackItem(0, used, Colors.blueAccent),
+              BarChartRodStackItem(used, used + sisa, Colors.lightBlueAccent),
+            ],
+            borderRadius: BorderRadius.circular(4),
+            width: 18,
+          ),
+        ],
+      );
     });
   }
 }

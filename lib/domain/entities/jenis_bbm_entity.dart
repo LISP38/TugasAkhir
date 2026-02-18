@@ -2,16 +2,10 @@ class JenisBbmEntity {
   final int jenisBbmId;
   final String namaJenisBbm;
 
-  const JenisBbmEntity({
-    required this.jenisBbmId,
-    required this.namaJenisBbm,
-  });
+  const JenisBbmEntity({required this.jenisBbmId, required this.namaJenisBbm});
 
   Map<String, dynamic> toMap() {
-    return {
-      'jenis_bbm_id': jenisBbmId,
-      'nama_jenis_bbm': namaJenisBbm,
-    };
+    return {'jenis_bbm_id': jenisBbmId, 'nama_jenis_bbm': namaJenisBbm};
   }
 
   factory JenisBbmEntity.fromMap(Map<String, dynamic> map) {

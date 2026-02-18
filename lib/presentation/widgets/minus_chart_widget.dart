@@ -6,11 +6,7 @@ class MinusChartWidget extends StatelessWidget {
   final List<RekapSatkerModel> data;
   final Function(String namaSatker)? onBarTapped;
 
-  const MinusChartWidget({
-    super.key, 
-    required this.data,
-    this.onBarTapped,
-  });
+  const MinusChartWidget({super.key, required this.data, this.onBarTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +46,20 @@ class MinusChartWidget extends StatelessWidget {
                     },
                   ),
                 ),
-                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 80,
                     getTitlesWidget: (double value, TitleMeta meta) {
                       final idx = value.toInt();
-                      if (idx < 0 || idx >= data.length) return const SizedBox.shrink();
+                      if (idx < 0 || idx >= data.length)
+                        return const SizedBox.shrink();
                       final label = data[idx].namaSatker;
                       return SideTitleWidget(
                         axisSide: meta.axisSide,
@@ -98,11 +99,12 @@ class MinusChartWidget extends StatelessWidget {
               borderData: FlBorderData(show: false),
               barTouchData: BarTouchData(
                 touchCallback: (FlTouchEvent event, barTouchResponse) {
-                  if (event is FlTapUpEvent && 
-                      barTouchResponse != null && 
+                  if (event is FlTapUpEvent &&
+                      barTouchResponse != null &&
                       barTouchResponse.spot != null &&
                       onBarTapped != null) {
-                    final touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
+                    final touchedIndex =
+                        barTouchResponse.spot!.touchedBarGroupIndex;
                     if (touchedIndex >= 0 && touchedIndex < data.length) {
                       onBarTapped!(data[touchedIndex].namaSatker);
                     }
@@ -113,13 +115,13 @@ class MinusChartWidget extends StatelessWidget {
                     if (groupIndex < 0 || groupIndex >= data.length) {
                       return null;
                     }
-                    
+
                     final satkerData = data[groupIndex];
                     final namaSatker = satkerData.namaSatker;
                     final kuotaAwal = satkerData.kuotaAwal.toInt();
                     final kuotaTerpakai = satkerData.kuotaTerpakai.toInt();
                     final kuotaMinus = (kuotaTerpakai - kuotaAwal).toInt();
-                    
+
                     final List<TextSpan> tooltipChildren = [
                       TextSpan(
                         text: 'Total Kuota: $kuotaAwal L\n',
@@ -146,7 +148,7 @@ class MinusChartWidget extends StatelessWidget {
                         ),
                       ),
                     ];
-                    
+
                     return BarTooltipItem(
                       '$namaSatker\n',
                       const TextStyle(
@@ -168,17 +170,20 @@ class MinusChartWidget extends StatelessWidget {
 
   List<BarChartGroupData> _makeBarGroups() {
     return List.generate(data.length, (i) {
-      final minus = (data[i].kuotaTerpakai - data[i].kuotaAwal).clamp(0.0, double.infinity);
+      final minus = (data[i].kuotaTerpakai - data[i].kuotaAwal).clamp(
+        0.0,
+        double.infinity,
+      );
 
       return BarChartGroupData(
-        x: i, 
+        x: i,
         barRods: [
           BarChartRodData(
             toY: minus,
             color: Colors.red.shade600,
             borderRadius: BorderRadius.circular(4),
             width: 18,
-          )
+          ),
         ],
       );
     });

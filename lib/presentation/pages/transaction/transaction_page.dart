@@ -314,7 +314,7 @@ class _TransactionPageState extends State<TransactionPage>
                       final satkerList = dash.satkerList;
                       final current = tprov.filterSatker ?? '';
                       return DropdownButtonFormField<String>(
-                        value: current.isEmpty ? '' : current,
+                        initialValue: current.isEmpty ? '' : current,
                         isExpanded: true,
                         decoration: const InputDecoration(
                           labelText: 'Satuan Kerja',
@@ -922,7 +922,7 @@ class _TransactionPageState extends State<TransactionPage>
                           );
 
                           return DropdownButtonFormField<int>(
-                            value: selectedPeriod,
+                            initialValue: selectedPeriod,
                             decoration: InputDecoration(
                               labelText: 'Periode Kupon',
                               hintText: 'Pilih periode kupon',

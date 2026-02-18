@@ -19,8 +19,8 @@ class KendaraanRekapModel {
       jenisRanmor: map['jenis_ranmor']?.toString() ?? '',
       noPolKode: map['no_pol_kode']?.toString() ?? '',
       noPolNomor: map['no_pol_nomor']?.toString() ?? '',
-      kuotaTerpakai: (map['kuota_terpakai'] is num) 
-          ? (map['kuota_terpakai'] as num).toDouble() 
+      kuotaTerpakai: (map['kuota_terpakai'] is num)
+          ? (map['kuota_terpakai'] as num).toDouble()
           : double.tryParse(map['kuota_terpakai']?.toString() ?? '0') ?? 0.0,
     );
   }

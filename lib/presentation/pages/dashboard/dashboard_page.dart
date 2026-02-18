@@ -11,7 +11,6 @@ import '../../../data/services/export_service.dart';
 import '../../../data/datasources/database_datasource.dart';
 import '../../../domain/repositories/kendaraan_repository.dart';
 import '../../providers/dashboard_provider.dart';
-import '../../providers/master_data_provider.dart';
 import '../../providers/transaksi_provider.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -726,7 +725,7 @@ class _DashboardPageState extends State<DashboardPage>
                             ),
                           ];
                           return DropdownButtonFormField<String>(
-                            value: _selectedJenisBBM ?? '',
+                            initialValue: _selectedJenisBBM ?? '',
                             decoration: const InputDecoration(
                               labelText: 'Jenis BBM',
                               border: OutlineInputBorder(),
@@ -990,7 +989,7 @@ class _DashboardPageState extends State<DashboardPage>
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: _selectedSatker,
+                        initialValue: _selectedSatker,
                         decoration: const InputDecoration(
                           labelText: 'Satuan Kerja',
                           border: OutlineInputBorder(),
@@ -1007,7 +1006,7 @@ class _DashboardPageState extends State<DashboardPage>
                     const SizedBox(width: 16),
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: _selectedJenisBBM ?? '',
+                        initialValue: _selectedJenisBBM ?? '',
                         decoration: const InputDecoration(
                           labelText: 'Jenis BBM',
                           border: OutlineInputBorder(),

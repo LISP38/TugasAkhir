@@ -77,7 +77,8 @@ class EnhancedImportValidator {
     final errors = <String>[];
     final warnings = <String>[];
     final seen = <String>{};
-    final duplicates = <String, int>{}; // Changed from <String, dynamic> to <String, int>
+    final duplicates =
+        <String, int>{}; // Changed from <String, dynamic> to <String, int>
 
     for (final kupon in kupons) {
       final key =
@@ -92,8 +93,9 @@ class EnhancedImportValidator {
     }
 
     // Now .entries works correctly on the Map
-    final actualDuplicates =
-        duplicates.entries.where((e) => e.value > 1).toList();
+    final actualDuplicates = duplicates.entries
+        .where((e) => e.value > 1)
+        .toList();
 
     if (actualDuplicates.isNotEmpty) {
       errors.add('Ditemukan duplikat dalam file Excel:');

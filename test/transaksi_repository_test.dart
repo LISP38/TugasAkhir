@@ -3,7 +3,6 @@ import 'package:kupon_bbm_app/data/datasources/database_datasource.dart';
 import 'package:kupon_bbm_app/data/models/transaksi_model.dart';
 import 'package:kupon_bbm_app/domain/repositories/transaksi_repository_impl.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:sqflite/sqflite.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +24,10 @@ void main() {
     // deleting parent rows for a clean test DB, then re-enable.
     await db.execute('PRAGMA foreign_keys = OFF;');
     await db.delete('fact_transaksi');
-    final _purchasingExists = await db.rawQuery(
+    final purchasingExists = await db.rawQuery(
       "SELECT name FROM sqlite_master WHERE type='table' AND name = 'fact_purchasing'",
     );
-    if (_purchasingExists.isNotEmpty) {
+    if (purchasingExists.isNotEmpty) {
       await db.delete('fact_purchasing');
     }
     await db.delete('dim_kupon');
@@ -43,10 +42,10 @@ void main() {
     // Clean up the tables (disable foreign keys to avoid FK failures)
     await db.execute('PRAGMA foreign_keys = OFF;');
     await db.delete('fact_transaksi');
-    final _purchasingExists2 = await db.rawQuery(
+    final purchasingExists2 = await db.rawQuery(
       "SELECT name FROM sqlite_master WHERE type='table' AND name = 'fact_purchasing'",
     );
-    if (_purchasingExists2.isNotEmpty) {
+    if (purchasingExists2.isNotEmpty) {
       await db.delete('fact_purchasing');
     }
     await db.delete('dim_kupon');

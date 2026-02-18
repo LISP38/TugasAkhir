@@ -13,8 +13,8 @@ void main() {
         jenisKuponId: 1,
         bulanTerbit: 1,
         tahunTerbit: 2025,
-        tanggalMulai: DateTime(2025,1,1).toIso8601String(),
-        tanggalSampai: DateTime(2025,1,31).toIso8601String(),
+        tanggalMulai: DateTime(2025, 1, 1).toIso8601String(),
+        tanggalSampai: DateTime(2025, 1, 31).toIso8601String(),
         kuotaAwal: 10,
         kuotaSisa: 10,
         satkerId: 1,
@@ -40,8 +40,8 @@ void main() {
         jenisKuponId: 2,
         bulanTerbit: 2,
         tahunTerbit: 2025,
-        tanggalMulai: DateTime(2025,2,1).toIso8601String(),
-        tanggalSampai: DateTime(2025,2,28).toIso8601String(),
+        tanggalMulai: DateTime(2025, 2, 1).toIso8601String(),
+        tanggalSampai: DateTime(2025, 2, 28).toIso8601String(),
         kuotaAwal: 20,
         kuotaSisa: 20,
         satkerId: 1,
@@ -59,7 +59,14 @@ void main() {
       );
 
       expect(result.isValid, isFalse);
-      expect(result.errors.any((e) => e.toLowerCase().contains('duplikat') || e.toLowerCase().contains('duplikat') ), isTrue);
+      expect(
+        result.errors.any(
+          (e) =>
+              e.toLowerCase().contains('duplikat') ||
+              e.toLowerCase().contains('duplikat'),
+        ),
+        isTrue,
+      );
     });
   });
 }
