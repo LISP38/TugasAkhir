@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Kupon_BBM-new.iml" filepath="$PROJECT_DIR$/.idea/Kupon_BBM-new.iml" />
+      <module fileurl="file://$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/file_picker/android/android.iml" filepath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/file_picker/android/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/file_picker/example/example.iml" filepath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/file_picker/example/example.iml" />
+    </modules>
+  </component>
+</project>

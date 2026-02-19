@@ -57,7 +57,7 @@ class DatabaseDatasource {
     return await dbFactory.openDatabase(
       path,
       options: OpenDatabaseOptions(
-        version: 10,
+        version: 11,
         onConfigure: (db) async {
           await db.execute('PRAGMA foreign_keys = ON;');
         },
@@ -416,6 +416,12 @@ class DatabaseDatasource {
             await db.execute('DROP INDEX IF EXISTS idx_fact_snapshot_kupon');
             await db.execute('DROP INDEX IF EXISTS idx_fact_snapshot_date');
           }
+
+          if (oldVersion < 11) {
+            await db.execute(
+              'ALTER TABLE fact_transaksi ADD COLUMN created_by TEXT',
+            );
+          }
         },
       ),
     );
@@ -509,6 +515,7 @@ class DatabaseDatasource {
         date_key INTEGER,
         jumlah_liter REAL NOT NULL,
         tanggal_transaksi TEXT NOT NULL,
+        created_by TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
         is_deleted INTEGER DEFAULT 0,
