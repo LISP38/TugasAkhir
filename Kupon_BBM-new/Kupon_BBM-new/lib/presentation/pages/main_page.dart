@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kupon_bbm_app/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:kupon_bbm_app/presentation/pages/import/import_page.dart';
 import 'package:kupon_bbm_app/presentation/pages/transaction/transaction_page.dart';
+import 'package:kupon_bbm_app/presentation/pages/sync_server_page.dart';
 import 'package:provider/provider.dart';
 import 'package:kupon_bbm_app/presentation/providers/dashboard_provider.dart';
 
@@ -25,8 +26,8 @@ class _MainPageState extends State<MainPage> {
     } else if (index == 1) {
       // TransactionPage
       return const TransactionPage();
-    } else {
-      // ImportPage with callback to refresh dashboard
+    } else if (index == 2) {
+      // ImportPage
       return ImportPage(
         onImportSuccess: () {
           // Use addPostFrameCallback for safer widget tree access
@@ -54,6 +55,8 @@ class _MainPageState extends State<MainPage> {
           });
         },
       );
+    } else {
+      return const SyncServerPage();
     }
   }
 
@@ -85,6 +88,11 @@ class _MainPageState extends State<MainPage> {
                 icon: Icon(Icons.upload_file),
                 selectedIcon: Icon(Icons.upload_file_outlined),
                 label: Text('Import Excel'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.phonelink_setup),
+                selectedIcon: Icon(Icons.phonelink_setup),
+                label: Text('Mobile Sync'),
               ),
             ],
           ),
