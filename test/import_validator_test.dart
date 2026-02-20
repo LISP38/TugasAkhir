@@ -59,7 +59,14 @@ void main() {
       );
 
       expect(result.isValid, isFalse);
-      expect(result.errors.any((e) => e.toLowerCase().contains('duplikat') || e.toLowerCase().contains('duplikat') ), isTrue);
+      expect(
+        result.errors.any(
+          (e) =>
+              e.toLowerCase().contains('duplikat') ||
+              e.toLowerCase().contains('duplikat'),
+        ),
+        isTrue,
+      );
     });
   });
 }

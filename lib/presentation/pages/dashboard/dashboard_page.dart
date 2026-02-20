@@ -11,7 +11,10 @@ import '../../../data/services/export_service.dart';
 import '../../../data/datasources/database_datasource.dart';
 import '../../../domain/repositories/kendaraan_repository.dart';
 import '../../providers/dashboard_provider.dart';
+<<<<<<< HEAD
 import '../../providers/master_data_provider.dart';
+=======
+>>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
 import '../../providers/transaksi_provider.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -726,7 +729,11 @@ class _DashboardPageState extends State<DashboardPage>
                             ),
                           ];
                           return DropdownButtonFormField<String>(
+<<<<<<< HEAD
                             value: _selectedJenisBBM ?? '',
+=======
+                            initialValue: _selectedJenisBBM ?? '',
+>>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
                             decoration: const InputDecoration(
                               labelText: 'Jenis BBM',
                               border: OutlineInputBorder(),
@@ -990,7 +997,11 @@ class _DashboardPageState extends State<DashboardPage>
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
+<<<<<<< HEAD
                         value: _selectedSatker,
+=======
+                        initialValue: _selectedSatker,
+>>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
                         decoration: const InputDecoration(
                           labelText: 'Satuan Kerja',
                           border: OutlineInputBorder(),
@@ -1007,7 +1018,11 @@ class _DashboardPageState extends State<DashboardPage>
                     const SizedBox(width: 16),
                     Expanded(
                       child: DropdownButtonFormField<String>(
+<<<<<<< HEAD
                         value: _selectedJenisBBM ?? '',
+=======
+                        initialValue: _selectedJenisBBM ?? '',
+>>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
                         decoration: const InputDecoration(
                           labelText: 'Jenis BBM',
                           border: OutlineInputBorder(),

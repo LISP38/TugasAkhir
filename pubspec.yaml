@@ -50,6 +50,7 @@ dependencies:
   shelf: ^1.4.1
   shelf_router: ^1.1.4
   qr_flutter: ^4.1.0
+  fl_chart: ^0.66.0
 
 dev_dependencies:
   flutter_test:

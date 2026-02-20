@@ -1,6 +1,6 @@
-Kupon_BBM-new/Kupon_BBM-new/.dart_tool
-Kupon_BBM-new/Kupon_BBM-new/build/
-Kupon_BBM-new/Kupon_BBM-new/windows/flutter/ephemeral/
-Kupon_BBM-new/Kupon_BBM-new/*.pdb
-Kupon_BBM-new/Kupon_BBM-new/*.dill
-
+*.pdb
+*.dill
+.dart_tool/
+build/
+windows/flutter/ephemeral/
+.flutter-plugins-dependencies
