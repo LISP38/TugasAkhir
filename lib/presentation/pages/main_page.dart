@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kupon_bbm_app/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:kupon_bbm_app/presentation/pages/import/import_page.dart';
 import 'package:kupon_bbm_app/presentation/pages/transaction/transaction_page.dart';
-<<<<<<< HEAD
 import 'package:kupon_bbm_app/presentation/pages/sync_server_page.dart';
-import 'package:provider/provider.dart';
 import 'package:kupon_bbm_app/presentation/providers/dashboard_provider.dart';
-=======
 import 'package:provider/provider.dart';
-import 'package:kupon_bbm_app/presentation/providers/dashboard_provider.dart';
 import 'package:kupon_bbm_app/presentation/pages/analysis_data/analysis_data_page.dart';
->>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -26,45 +21,6 @@ class _MainPageState extends State<MainPage> {
   final GlobalKey _dashboardKey = GlobalKey();
 
   Widget _buildPage(int index) {
-<<<<<<< HEAD
-    if (index == 0) {
-      // DashboardPage - sekarang jadi halaman pertama
-      return DashboardPage(key: _dashboardKey);
-    } else if (index == 1) {
-      // TransactionPage
-      return const TransactionPage();
-    } else if (index == 2) {
-      // ImportPage
-      return ImportPage(
-        onImportSuccess: () {
-          // Use addPostFrameCallback for safer widget tree access
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (!mounted) return;
-
-            try {
-              // Try to get provider from root context first
-              final provider = context.read<DashboardProvider>();
-              provider.fetchKupons();
-            } catch (e) {
-              // Fallback: try with dashboard key context
-              try {
-                if (_dashboardKey.currentContext != null) {
-                  final provider = Provider.of<DashboardProvider>(
-                    _dashboardKey.currentContext!,
-                    listen: false,
-                  );
-                  provider.fetchKupons();
-                }
-              } catch (_) {
-                // Silently ignore - dashboard refresh failed
-              }
-            }
-          });
-        },
-      );
-    } else {
-      return const SyncServerPage();
-=======
     switch (index) {
       case 0:
         return DashboardPage(key: _dashboardKey);
@@ -99,9 +55,11 @@ class _MainPageState extends State<MainPage> {
       case 3:
         return const AnalysisDataPage();
 
+      case 4:
+        return const SyncServerPage();
+
       default:
         return const SizedBox();
->>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
     }
   }
 
@@ -135,15 +93,14 @@ class _MainPageState extends State<MainPage> {
                 label: Text('Import Excel'),
               ),
               NavigationRailDestination(
-<<<<<<< HEAD
-                icon: Icon(Icons.phonelink_setup),
-                selectedIcon: Icon(Icons.phonelink_setup),
-                label: Text('Mobile Sync'),
-=======
                 icon: Icon(Icons.analytics),
                 selectedIcon: Icon(Icons.analytics_outlined),
                 label: Text('Analisis Data'),
->>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.phonelink_setup),
+                selectedIcon: Icon(Icons.phonelink_setup),
+                label: Text('Mobile Sync'),
               ),
             ],
           ),

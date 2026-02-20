@@ -241,15 +241,9 @@ class _ImportPageState extends State<ImportPage> {
             title: Text(
               'Import Kupon dari Excel',
               style: GoogleFonts.stardosStencil(
-<<<<<<< HEAD
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              ), 
-=======
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
->>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
             ),
           ),
           body: Padding(

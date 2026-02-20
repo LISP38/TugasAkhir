@@ -37,18 +37,6 @@ class ImportExcelUseCase {
         // Cek apakah kupon sudah ada, jika sudah update, jika belum tambah
         // (Logika ini bisa disempurnakan sesuai kebutuhan 'replace' di spek)
         final existingKupon = await kuponRepository.getKuponById(kupon.kuponId);
-<<<<<<< HEAD
-        
-        if (existingKupon != null) {
-          // Logika update (misalnya, update kuota atau tanggal)
-          // Untuk sekarang kita lewati dulu agar tidak duplikat
-           throw Exception('Kupon ${kupon.nomorKupon} sudah ada.');
-        } else {
-          await kuponRepository.insertKupon(kupon);
-        }
-        
-=======
-
         if (existingKupon != null) {
           // Logika update (misalnya, update kuota atau tanggal)
           // Untuk sekarang kita lewati dulu agar tidak duplikat
@@ -56,8 +44,6 @@ class ImportExcelUseCase {
         } else {
           await kuponRepository.insertKupon(kupon);
         }
-
->>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
         success++;
       } catch (e) {
         failed++;
@@ -71,8 +57,4 @@ class ImportExcelUseCase {
       errorMessages: errors,
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b6e212b13e12f3f027e7869a7e8697336b7ed7fe
